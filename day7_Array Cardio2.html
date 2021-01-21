@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio 💪💪</title>
+</head>
+<body>
+  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <script>
+    // ## Array Cardio Day 2
+
+    const people = [
+      { name: 'Wes', year: 1988 },
+      { name: 'Kait', year: 1986 },
+      { name: 'Irv', year: 1970 },
+      { name: 'Lux', year: 2015 }
+    ];
+
+    const comments = [
+      { text: 'Love this!', id: 523423 },
+      { text: 'Super good', id: 823423 },
+      { text: 'You are the best', id: 2039842 },
+      { text: 'Ramen is my fav food ever', id: 123523 },
+      { text: 'Nice Nice Nice!', id: 542328 }
+    ];
+
+    // Some and Every Checks  找到陣列有符合條件的迴船TRUE
+    // Array.prototype.some() // is at least one person 19 or older?
+
+    let ans = people.some(p=>{
+        return new Date().getUTCFullYear() - p.year >= 19;
+    });
+    console.log(ans);
+    // Array.prototype.every() // is everyone 19 or older? 找到陣列裡每一個都符合條件迴船TRUE
+    let ans1 = people.every(p=>{
+        return new Date().getUTCFullYear() -p.year >=19;
+    });
+    console.log(ans1);
+    // Array.prototype.find() 找到第一筆符合條件的
+    // Find is like filter, but instead returns just the one you are looking for
+    // find the comment with the ID of 823423
+    let ans2 = comments.find(comment=> comment.id === 823423);
+    // console.log(ans2);
+
+    // Array.prototype.findIndex() 找到陣列裡第一個符合條件的他的[]編號
+    // Find the comment with this ID
+    let ans3 = comments.findIndex(comment => comment.id === 823423);
+    console.log(ans3);
+
+    // delete the comment with the ID of 823423
+
+    //slice,splice
+    // const ans4 = comments.splice(ans3,1);
+    // console.log(ans4,comments);
+
+    // const ans5 = comments.slice(0,ans3);
+    // const ans6 = comments.slice(ans3+1);
+    // const ans7 = [...ans5,...ans6];
+    
+    // console.log(ans5);
+    // console.log(ans7,comments);
+
+    ///////////補充
+    let obj1 = {count:1};
+    let obj2 = obj1;
+    let obj3 = Object.assign({},obj1);  //Object.assign({塞進來的物件},被複製的物件)會複製新的一個出來
+    obj1.count = 5;
+    let obj4 = JSON.parse(JSON.stringify(obj2));
+
+    console.log(obj1.count + obj2.count + obj3.count + obj4.count);
+
+  </script>
+</body>
+</html>
