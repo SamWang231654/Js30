@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+  <style>
+      body{
+          background-color: rgb(94, 83, 70);
+      }
+  </style>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    let console = {
+        isDev: true,
+        log(...args){
+            if(!this.isDev) return;
+            window.console.log(...args);
+        },
+        warn(...args){
+            if(!this.isDev) return;
+            window.console.warn(...args);
+        },
+        error (...args){
+            if(!this.isDev) return;
+            window.console.error (...args);
+        },
+        info (...args){
+            if(!this.isDev) return;
+            window.console.info (...args);
+        },
+        dir (...args){
+            if(!this.isDev) return;
+            window.console.dir (...args);
+        },
+        table (...args){
+            if(!this.isDev) return;
+            window.console.table (...args);
+        },
+        count (...args){
+            if(!this.isDev) return;
+            window.console.count  (...args);
+        },
+        time (...args){
+            if(!this.isDev) return;
+            window.console.time  (...args);
+        },
+        timeEnd (...args){
+            if(!this.isDev) return;
+            window.console.timeEnd  (...args);
+        },
+    };
+
+
+    // Regular
+    console.log(123);
+    // Interpolated
+    console.log("My name is %S!!!", 'Sam');
+    // Styled
+
+    // warning!
+    console.warn('warn~~');
+    // Error :|
+    console.error('error');
+    // Info
+    console.info('好像和LOG依樣')
+    // Testing
+
+    // clearing
+    // CTRL+L
+    // Viewing DOM Elements
+    let p = document.querySelector('p');
+
+    console.log(p);
+    console.log(dogs);
+
+    console.dir(p);
+    console.dir(dogs);
+    // Grouping together
+    console.table(dogs);
+    console.table(dogs,['name']);
+    // counting
+    console.count('wes');
+    console.count('wes');
+    console.count('wes');
+    console.count('wes');
+    // timing
+    console.time('text')
+    let i;
+    for(i=0 ; i < 1000000; i++){
+        j = i;
+    }
+    console.timeEnd('text')
+  </script>
+</body>
+</html>
