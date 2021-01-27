@@ -1,0 +1,24 @@
+{
+    "users":[
+        {
+        "id":1,
+        "name": "Sam"
+        },
+        {
+        "id":2,
+        "name":"Emilie"
+        },
+        {
+        "id":3,
+        "name":"Carl"
+        },
+        {
+        "id":4,
+        "name":"Dwiddle"
+        },
+        {
+        "id":5,
+        "name":"Bbowell"
+        }
+    ]
+}
