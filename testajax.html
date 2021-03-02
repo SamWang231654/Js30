@@ -7,7 +7,11 @@
     
 </head>
 <body>
-
+    <div id="create">
+        <input type="text" placeholder="name">
+        <a href="javascript:;">Create</a>
+    </div>
+    <hr>
     <ul id="users"></ul>
 
 
@@ -24,13 +28,25 @@
             }).done(function(res){
                 console.log(res);
                 $('#users').empty()
-                res.forEach(function(user){
+                res.users.forEach(function(user){
                     console.log(user)
                     $('#users').append('<li>' + user.name + '</li>')
                 })
             }).fail(function(error){
                 console.log(error)
             })
+
+            $('#create > a').on('click',function(){
+                $.ajax({
+                url:'test.json/',
+                method:'post',
+                dataType:'json',
+                data:{
+                    name:$('#create > input').val()
+                }
+            })
+            })
+            
         })
     </script>
 </body>
