@@ -12,6 +12,9 @@
         left:0;
         width:100%;
     }
+    .fixedMenu #main .logo{
+        max-width:100%;
+    }
 </style>
 <body>
 
@@ -70,8 +73,10 @@
         // console.log(window.scrollY,nav.offsetTop);
         if(window.scrollY >= navPosition){
             document.body.classList.add('fixedMenu');
+            document.body.style.paddingTop = nav.offsetHeight + 'px';
         }else{
             document.body.classList.remove('fixedMenu');
+            document.body.style.paddingTop ='';
         }
     }
 
