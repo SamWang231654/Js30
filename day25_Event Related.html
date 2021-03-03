@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+
+<style>
+    html {
+      box-sizing: border-box;
+    }
+    
+    *, *:before, *:after { 
+      box-sizing: inherit; 
+    }
+  
+    div {
+      width: 100%;
+      padding: 100px;
+    }
+  
+    .one {
+      background: thistle;
+    }
+  
+    .two {
+      background: mistyrose;
+    }
+  
+    .three {
+      background: coral;
+    }
+  </style>
+
+
+<body class="bod">
+    <button>Button</button>
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+  <ul>
+      <li><a href="#">Button1</a></li>
+      <li><a href="#">Button2</a></li>
+      <li><a href="#">Button3</a></li>
+  </ul>
+
+
+<script>
+    let button = document.querySelector('button');
+    button.addEventListener('click',buttonHandler,{capture:true,once:false});
+
+    function buttonHandler(){
+        console.log('button123');
+    };
+
+    let divs = document.querySelectorAll('div');
+    divs.forEach((e)=>{
+        e.addEventListener('click',divsHandler,{capture:true});
+    });
+
+    function divsHandler (e){
+        e.stopPropagation();
+        console.log(this.className);
+    }
+
+    let as = document.querySelectorAll('a');
+    as.forEach((e)=>{
+        e.addEventListener('click',aHandler,{capture:true,passive:false});
+    });
+
+    function aHandler (e){
+        e.preventDefault();
+        console.log('A click');
+    }
+
+    //委派偵聽 
+    let ul = document.querySelector('ul');
+    ul.addEventListener('click',ulHandler);
+
+    function ulHandler(e){
+        if(e.target.nodeName === 'A'){
+            e.preventDefault();
+            console.log('ul click',e.target);
+        }
+    };
+</script>
+</body>
+</html>
