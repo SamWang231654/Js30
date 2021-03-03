@@ -6,48 +6,77 @@
     <title>Document</title>
     
 </head>
+<style>
+    div > img{
+        width:500px;
+    }
+</style>
 <body>
-    <div id="create">
+    <!-- <div id="create">
         <input type="text" placeholder="name">
         <a href="javascript:;">Create</a>
     </div>
     <hr>
-    <ul id="users"></ul>
+    <ul id="users"></ul> -->
+    <nav>
+        <a href="./testajax.html" class="current">1111</a>
+        <a href="./testajax2.html">2222</a>
+    </nav>
+    <section id="section">
+        <div id="container1">
+            <p>789456</p>
+            <img src="./img/bed03_02.jpg" alt="">
+        </div>
+    </section>
+    
 
 
 
     <script src="./src/jquery.js"></script>
     <script>
+
         $(function(){
+            $('nav a').on('click',function(e){
+                e.preventDefault();
+                let url = this.href;
 
-            $.ajax({
-                url: "test.json",
-                method:"get",
-                dataType:"json",
-                data:{}
-            }).done(function(res){
-                console.log(res);
-                $('#users').empty()
-                res.users.forEach(function(user){
-                    console.log(user)
-                    $('#users').append('<li>' + user.name + '</li>')
-                })
-            }).fail(function(error){
-                console.log(error)
-            })
+                $('nav a.current').removeClass('current');
+                $(this).addClass('current');
 
-            $('#create > a').on('click',function(){
-                $.ajax({
-                url:'test.json/',
-                method:'post',
-                dataType:'json',
-                data:{
-                    name:$('#create > input').val()
-                }
-            })
-            })
-            
+                $('#container1').remove();
+                $('#section').load(url + '#section').hide().fadeIn('500');
+            });
         })
+        // $(function(){
+
+        //     $.ajax({
+        //         url: "test.json",
+        //         method:"get",
+        //         dataType:"json",
+        //         data:{}
+        //     }).done(function(res){
+        //         console.log(res);
+        //         $('#users').empty()
+        //         res.users.forEach(function(user){
+        //             console.log(user)
+        //             $('#users').append('<li>' + user.name + '</li>')
+        //         })
+        //     }).fail(function(error){
+        //         console.log(error)
+        //     })
+
+        //     $('#create > a').on('click',function(){
+        //         $.ajax({
+        //         url:'test.json/',
+        //         method:'post',
+        //         dataType:'json',
+        //         data:{
+        //             name:$('#create > input').val()
+        //         }
+        //     })
+        //     })
+            
+        // })
     </script>
 </body>
 </html>
