@@ -91,7 +91,7 @@
       transform-origin: 50% 0;
       display: flex;
       justify-content: center;
-      /* opacity:0; */
+      opacity:0;
     }
   
     .dropdownBackground.open {
@@ -226,6 +226,9 @@
     
     function enterHandler(){
         this.classList.add('trigger-enter');
+        setTimeout(() => {
+            this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active');
+        }, 100);
         const dropdown = this.querySelector('.dropdown');
         const rect = dropdown.getBoundingClientRect();
         const navRect = document.querySelector('.top').getBoundingClientRect();
@@ -237,7 +240,7 @@
         //     top:0,
         //     left:0,
         // };
-
+        dropdownBackground.classList.add('open')
         dropdownBackground.style.width = rect.width + 'px';
         dropdownBackground.style.height = rect.height + 'px';
         dropdownBackground.style.top = (rect.top - navRect.top) + 'px';
@@ -245,11 +248,13 @@
     };
 
     function leaveHandler(){
-
+        dropdownBackground.classList.remove('open');
+        this.classList.remove('trigger-enter');
+        this.classList.remove('trigger-enter-active');
 };
 
     menus.forEach((menu)=>{
-        menu.addEventListener('mouseenter',enterHandler);
+        menu.addEventListener('mouseenter',enterHandler); 
         menu.addEventListener('mouseleave',leaveHandler);
     })
 </script>
