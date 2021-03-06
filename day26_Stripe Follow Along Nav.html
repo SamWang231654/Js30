@@ -244,7 +244,7 @@
         dropdownBackground.style.width = rect.width + 'px';
         dropdownBackground.style.height = rect.height + 'px';
         dropdownBackground.style.top = (rect.top - navRect.top) + 'px';
-        dropdownBackground.style.left = (rect.left - navRect.left) + 'px';
+        dropdownBackground.style.left = rect.left + 'px';
     };
 
     function leaveHandler(){
@@ -255,7 +255,7 @@
 
     menus.forEach((menu)=>{
         menu.addEventListener('mouseenter',enterHandler); 
-        menu.addEventListener('mouseleave',leaveHandler);
+        menu.addEventListener('mouseleave',leaveHandler); 
     })
 </script>
 
