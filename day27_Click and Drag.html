@@ -42,10 +42,11 @@ body {
   background: rgba(255,255,255,0.1);
   font-size: 0;
   perspective: 500px;
+  overflow:hidden;
 }
 
 .items.active {
-  background: rgba(255,255,255,0.3);
+  background: rgba(133, 33, 33, 0.3);
   cursor: grabbing;
   cursor: -webkit-grabbing;
   transform: scale(1);
@@ -106,32 +107,50 @@ body {
   </div>
  
 <script>
-    const lists = document.querySelector('.items');
-    let startX = 0;
-
-    function startDrag(e){
-        lists.classList.add('active');
-        // console.log(e);
-        startX = e.offsetX;
-    };
-    function dragHandler(e){
-        if(lists.classList.contains('active')){
-            let move = e.offsetX - startX;
-            startX = e.offsetX;
-            lists.scrollLeft -= move;
+const list = document.querySelector(".items");
+      let startX = 0;
+      let startScroll = 0;
+      let startTime = 0;
+      let moved = false;
+      const startDrag = function(e) {
+        list.classList.add("active");
+        startX = e.pageX;
+        startScroll = list.scrollLeft;
+        startTime = new Date().getTime();
+        moved = false;
+      };
+      const dragHandler = function(e) {
+        e.preventDefault();
+        if (list.classList.contains("active")) {
+          moved = true;
+          let move = e.pageX - startX;
+          // startX = e.pageX;
+          // list.scrollLeft -= move * 5;
+          list.scrollLeft = startScroll - move * 5;
         }
-        
-    };
-    function stopDrag(){
-        lists.classList.remove('active');
+      };
+      const stopDrag = function(e) {
+        list.classList.remove("active");
+        if (new Date().getTime() - startTime <= 250) {
+          if (e.pageX > startX) {
+            console.log("swipe right");
+          } else if (e.pageX < startX) {
+            console.log("swipe left");
+          }
+        }
+      };
+      list.addEventListener("mousedown", startDrag); //touchstart
+      list.addEventListener("mousemove", dragHandler); //touchmove
+      list.addEventListener("mouseup", stopDrag); //touchend
+      list.addEventListener("mouseleave", stopDrag);
 
-    };
-
-
-    lists.addEventListener('mousedown',startDrag);
-    lists.addEventListener('mousemove',dragHandler);
-    lists.addEventListener('mouseup',stopDrag);
-    lists.addEventListener('mouseleave',stopDrag);
+      document.querySelectorAll(".items a").forEach(dom => {
+        dom.addEventListener("click", function(e) {
+          if (moved) {
+            e.preventDefault();
+          }
+        });
+      });
 
 </script>
 
