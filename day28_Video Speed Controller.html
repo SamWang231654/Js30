@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Speed Scrubber</title>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<style>
+    body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #4C4C4C url('https://unsplash.it/1500/900?image=1021');
+  background-size: cover;
+  font-family: sans-serif;
+}
+
+.wrapper {
+  width: 850px;
+  display: flex;
+}
+
+video {
+  box-shadow: 0 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.speed {
+  background: #efefef;
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  margin: 10px;
+  border-radius: 50px;
+  box-shadow: 0 0 1px 3px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.speed-bar {
+  width: 100%;
+  background: linear-gradient(-170deg, #2376ae 0%, #c16ecf 100%);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  color: white;
+  height: 16.3%;
+}
+</style>
+<body>
+
+  <div class="wrapper">
+    <video class="flex" width="765" height="430" src="http://clips.vorwaerts-gmbh.de/VfE_html5.mp4" loop controls></video>
+    <div class="speed">
+      <div class="speed-bar">1×</div>
+    </div>
+  </div>
+
+<script>
+    const target = document.querySelector('.speed');
+    const bar = document.querySelector('.speed-bar');
+    const video = document.querySelector('video');
+
+    function movieHandler(e){
+        const max = 2;
+        const min = 0.5;
+        const y = e.pageY - this.offsetTop; 
+        let percent = y / this.offsetHeight; //原本是0~1
+        const height = Math.round(percent * 100) + '%';
+
+        bar.style.height = height;
+        //要從0~1 變成0.5~2
+        // 0~1 => * (大 - 小) + 小
+        percent = percent * (max-min) + min;
+        
+        console.log(percent);
+
+        percent = percent > max ? max : percent < min ? min : percent;
+        // 看作賦值 = percent > 2 (?=if) 回給他2 (:=else) percent <0.5 (?=if) 回給他0.5 (:=else) 回給他percent
+
+        // if(percent > 2){
+        //     percent = 2;
+        // }else if(percent < 0.5){
+        //     percent = 0.5;
+        // }else{
+        //     percent = percent;
+        // }
+        bar.textContent = Math.round(percent * 100) /100 + 'x';
+        // console.log(percent);
+
+        video.playbackRate = percent;
+
+    }
+
+
+    target.addEventListener('mousemove',movieHandler);
+
+</script>
+</body>
+</html>
