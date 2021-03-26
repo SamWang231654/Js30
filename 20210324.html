@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: rgb(92, 90, 87);
+    }
+    button{
+        background: none;
+        color: rgb(189, 165, 165);
+    }
+    li button{
+        display:none;
+        margin-left:10px;
+    }
+    li:hover button{
+        display:inline-block;
+    }
+</style>
+<body>
+    <div id="app">
+        <input-component @custom-input="inputHandler" v-model="inputText"></input-component>
+        <input-component2 @custom-input="input2Handler"></input-component2>
+        <filter-component @filter="filterHandler"></filter-component>
+        <ul>
+            <li v-for="(item, index) in filterList" :key="item.timestamp ">
+                <template v-if="editing === item">
+                    <input type="text" v-model="editingText">
+                    <button @click="completeHandler">Finish</button> 
+                    <button @click="cancelHandler">Cancel</button>
+                </template>
+                <template v-else>
+                    <input type="checkbox" v-model="item.status">{{item.content}}
+                    <button @click="editHandler(item)">update</button>
+                    <button @click="deleteHandler(item)">delete</button>
+                </template>
+            </li>
+        </ul>
+    </div>
+
+    <script src="./src/vue.js"></script>
+    <script src="20210324.js"></script>
+</body>
+</html>
